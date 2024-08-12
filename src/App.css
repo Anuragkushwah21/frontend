@@ -1,0 +1,12 @@
+.bgimg {
+  background-image: url(../public/images/pexels-mart-production-7550298.jpg);
+  background-repeat: no-repeat;
+}
+.navbarHide{
+  display: none;
+}
+.footerHide{
+  display: none;
+  background-color: black;
+  color: white;
+}
