@@ -4,7 +4,7 @@ function Contact() {
  
   return (
    <>
-      <div className="bgimg min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="bgimg min-h-screen flex items-center justify-center bg-gray-100 p-6 pt-20">
       <div className="container mx-auto max-w-2xl bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Contact Us</h1>
         <form>

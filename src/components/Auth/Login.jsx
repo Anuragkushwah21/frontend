@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Context } from "../../main";
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [role, setRole] = useState("");
 
   const { isAuthorized, setIsAuthorized, user, SetUser } = useContext(Context);
 
@@ -17,10 +18,12 @@ function Login() {
       const { data } = await axios.post("/api/verifylogin", {
         email,
         password,
+        role,
       });
       toast.success(data.message);
       setEmail("");
       setPassword("");
+      setRole("");
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -36,6 +39,21 @@ function Login() {
         <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Login</h2>
           <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+              <label className="block font-bold text-gray-700 mb-2" htmlFor="role">
+                Role
+              </label>
+              <select
+                id="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+              >
+                <option value="">Choose The Role</option>
+                <option value="JobSeeker">Job Seeker</option>
+                <option value="JobEmployee">Job Employee</option>
+              </select>
+            </div>
             <div className="mb-4">
               <label className="block font-bold text-gray-700 mb-2" htmlFor="email">
                 Email

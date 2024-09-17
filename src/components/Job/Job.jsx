@@ -1,59 +1,70 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 function Job() {
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("All");
+  const [jobs, setJobs] = useState([]);
+  const { id } = useParams();
 
   const handleSearchChange = (e) => setSearch(e.target.value);
   const handleLocationChange = (e) => setLocation(e.target.value);
   const handleJobTypeChange = (e) => setJobType(e.target.value);
 
   // Dummy data for job listings
-  const jobListings = [
-    {
-      id: 1,
-      title: "Software Engineer",
-      company: "ABC Company",
-      location: "New York, NY",
-      type: "Full-Time",
-    },
-    {
-      id: 2,
-      title: "Marketing Manager",
-      company: "XYZ Corp",
-      location: "San Francisco, CA",
-      type: "Part-Time",
-    },
-    {
-      id: 3,
-      title: "Data Scientist",
-      company: "DataTech Inc.",
-      location: "Boston, MA",
-      type: "Remote",
-    },
-  ];
+  // const jobListings = [
+  //   {
+  //     id: 1,
+  //     title: "Software Engineer",
+  //     company: "ABC Company",
+  //     location: "New York, NY",
+  //     type: "Full-Time",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Marketing Manager",
+  //     company: "XYZ Corp",
+  //     location: "San Francisco, CA",
+  //     type: "Part-Time",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Data Scientist",
+  //     company: "DataTech Inc.",
+  //     location: "Boston, MA",
+  //     type: "Remote",
+  //   },
+  // ];
 
-  
+  const jobList = async () => {
+    const response = await axios.get("/api/jobDisplay");
+    console.log(response.data);
+    setJobs(response.data.job);
+  };
+  useEffect(() => {
+    jobList();
+  }, []);
+  console.log(jobs);
 
-  const filteredJobs = jobListings.filter(
-    (job) =>
-      job.title.toLowerCase().includes(search.toLowerCase()) &&
-      job.location.toLowerCase().includes(location.toLowerCase()) &&
-      (jobType === "All" || job.type === jobType)
-  );
+  // const filteredJobs = jobList.filter(
+  //   (job) =>
+  //     job.title.toLowerCase().includes(search.toLowerCase()) &&
+  //     job.location.toLowerCase().includes(location.toLowerCase()) &&
+  //     (jobType === "All" || job.type === jobType)
+  // );
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 p-6">
+      <div className="min-h-screen bg-gray-100 p-6 pt-28">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
             Job Listings
           </h1>
 
           {/* Search and Filters */}
-          <div className="mb-6 flex flex-col md:flex-row items-center md:justify-between space-y-4 md:space-y-0">
+          <div className="mb-10 flex flex-col md:flex-row items-center md:justify-between gap-2 md:space-y-0">
             <input
               type="text"
               placeholder="Search jobs..."
@@ -81,7 +92,7 @@ function Job() {
           </div>
 
           {/* Job Listings */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredJobs.length > 0 ? (
               filteredJobs.map((job) => (
                 <div key={job.id} className="bg-white p-6 rounded-lg shadow-md">
@@ -102,6 +113,30 @@ function Job() {
             ) : (
               <p className="text-gray-700 text-center w-full">No jobs found.</p>
             )}
+          </div> */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {jobs.map((item,index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
+                <p className="text-gray-700 mb-2">{item.category}</p>
+                <p className="text-gray-700 mb-4">
+                  <i className="p-1 fa-solid fa-location-dot"></i>
+                  {item.location}
+                </p>
+                <p className="text-gray-700 mb-4">
+                  ₹{item.fixedSalary}/Lacs P.A.
+                </p>
+                <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                  {item.jobType}
+                </span>
+                <Link
+                  to={`/job/${item._id}`}
+                  className="block mt-4 text-blue-600 hover:underline"
+                >
+                  View Job
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </div>

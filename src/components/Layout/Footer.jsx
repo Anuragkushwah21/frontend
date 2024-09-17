@@ -6,14 +6,16 @@ import { RiInstagramFill } from "react-icons/ri";
 
 function Footer() {
   const { isAuthorized } = useContext(Context);
-  if(isAuthorized){
-    true ? "footerShow" : "footerHide"
+  if (!isAuthorized) {
+    true ? "footerShow" : "footerHide";
   }
   return (
     <>
       <footer
         className={
-          isAuthorized ? "footerShow" : "footerShow py-8"
+          isAuthorized
+            ? "footerShow bg-black text-white pt-12"
+            : "footerHide py-8 bg-black text-white"
         }
       >
         <div className="container mx-auto px-4">
@@ -24,87 +26,87 @@ function Footer() {
             <div className="mt-10">
               <ul>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     FAQ
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Investor Relations
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Privacy
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Speed Test
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Media Centre
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div className="mt-10">
               <ul>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Help Centre
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Jobs
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Cookie Preferences
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Legal Notices
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Terms of Use
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div className="mt-10">
               <ul>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Account
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Ways to Watch
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Corporate Information
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Only on Netflix
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="hover:underline">
+                  <Link href="/contact" className="hover:underline">
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

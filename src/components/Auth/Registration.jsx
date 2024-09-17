@@ -57,8 +57,8 @@ function Registration() {
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
               >
                 <option value="">Choose The Role</option>
-                <option value="Job Seeker">Job Seeker</option>
-                <option value="Job Employee">Job Employee</option>
+                <option value="JobSeeker">Job Seeker</option>
+                <option value="JobEmployee">Job Employee</option>
               </select>
             </div>
             <div className="mb-4">

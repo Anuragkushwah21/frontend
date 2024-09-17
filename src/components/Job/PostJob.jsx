@@ -8,8 +8,9 @@ function PostJob() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [jobType, setJobType] = useState("");
   const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
+  const [keySkill, setKeySkill] = useState("");
   const [location, setLocation] = useState("");
   const [fixedSalary, setFixedSalary] = useState("");
   const [salaryFrom, setSalaryFrom] = useState("");
@@ -23,8 +24,9 @@ function PostJob() {
         title,
         description,
         category,
+        jobType,
         country,
-        city,
+        keySkill,
         location,
         fixedSalary,
         salaryFrom,
@@ -35,22 +37,23 @@ function PostJob() {
       setDescription("");
       setCategory("");
       setCountry("");
-      setCity("");
+      setJobType("");
+      setKeySkill("");
       setLocation("");
       setFixedSalary("");
       setSalaryFrom("");
       setSalaryTo("");
-      setIsAuthorized(true);
+      // setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
-  if(isAuthorized){
-    return <Navigate to={"/job/getall"}/>
-  }
+  // if(isAuthorized){
+  //   return <Navigate to={"/job/post"}/>
+  // }
   return (
     <>
-      <div className="bgimg min-h-screen flex items-center justify-center p-6">
+      <div className="bgimg min-h-screen flex items-center justify-center p-6 pt-20">
         <div className="container mx-auto max-w-2xl bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-6">Post a Job</h2>
           <form onSubmit={handelSubmit}>
@@ -63,6 +66,7 @@ function PostJob() {
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+                placeholder="Enter Your Title"
               />
             </div>
 
@@ -76,6 +80,7 @@ function PostJob() {
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+                 placeholder="Enter Your Description"
               />
             </div>
 
@@ -88,6 +93,7 @@ function PostJob() {
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+                 placeholder="Enter Your Category"
               />
             </div>
 
@@ -100,18 +106,35 @@ function PostJob() {
                 onChange={(e) => setCountry(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+                 placeholder="Enter Your Country"
               />
             </div>
 
             <div className="mb-4">
-              <label className="block font-bold text-gray-700">City</label>
+              <label className="block font-bold text-gray-700">Job Type</label>
+              <select
+                id="jobType"
+                value={jobType}
+                onChange={(e) => setJobType(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+              >
+                <option value="">Choose The Job Type</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block font-bold text-gray-700">Key Skills</label>
               <input
                 type="text"
                 name="city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                value={keySkill}
+                onChange={(e) => setKeySkill(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+                 placeholder="Enter Your City"
               />
             </div>
 
@@ -124,6 +147,7 @@ function PostJob() {
                 onChange={(e) => setLocation(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
+                 placeholder="Enter Your Location"
               />
             </div>
 
@@ -137,6 +161,7 @@ function PostJob() {
                 value={fixedSalary}
                 onChange={(e) => setFixedSalary(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 placeholder="Enter Your Fixed Salary"
               />
             </div>
 
@@ -150,6 +175,7 @@ function PostJob() {
                 value={salaryFrom}
                 onChange={(e) => setSalaryFrom(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 placeholder="Enter Your Salary From"
               />
             </div>
 
@@ -161,6 +187,7 @@ function PostJob() {
                 value={salaryTo}
                 onChange={(e) => setSalaryTo(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 placeholder="Enter Your Salary To"
               />
             </div>
 

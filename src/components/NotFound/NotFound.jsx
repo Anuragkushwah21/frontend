@@ -2,9 +2,11 @@ import React from 'react'
 
 function NotFound() {
   return (
-    <div>
-      
-    </div>
+    <>
+     <div>
+    <img src="../../../public/images/Anurag-resume updated_page-0001 (1) (1).jpg" alt="" />
+  </div>
+    </>
   )
 }
 

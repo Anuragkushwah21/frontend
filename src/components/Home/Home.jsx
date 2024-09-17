@@ -1,11 +1,13 @@
 import React from "react";
 import HeroSection from "./HeroSection";
 import { Link } from "react-router-dom";
+import HeaderCarousel from "./HeaderCarousel ";
 
 function Home() {
   return (
     <>
       <div>
+        <HeaderCarousel/>
         <HeroSection/>
         {/* Features Section */}
         <section className="py-20 bg-gray-100">
@@ -47,7 +49,7 @@ function Home() {
                 <p className="text-gray-700 mb-4">ABC Company</p>
                 <p className="text-gray-700">Location: New York, NY</p>
                 <Link
-                  to="/jobs/1"
+                  to="/job/getall"
                   className="text-blue-600 hover:underline mt-4 inline-block"
                 >
                   View Job
@@ -58,7 +60,7 @@ function Home() {
                 <p className="text-gray-700 mb-4">XYZ Corp</p>
                 <p className="text-gray-700">Location: San Francisco, CA</p>
                 <Link
-                  to="/jobs/2"
+                  to="/job/getall"
                   className="text-blue-600 hover:underline mt-4 inline-block"
                 >
                   View Job
@@ -69,7 +71,7 @@ function Home() {
                 <p className="text-gray-700 mb-4">DataTech Inc.</p>
                 <p className="text-gray-700">Location: Boston, MA</p>
                 <Link
-                  to="/jobs/3"
+                  to="/job/getall"
                   className="text-blue-600 hover:underline mt-4 inline-block"
                 >
                   View Job

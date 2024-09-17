@@ -1,50 +1,54 @@
 import React, { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../../main";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 function Navbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthorized, setIsAuthorized, user } = useContext(Context);
-  console.log(isAuthorized);
+  // console.log(isAuthorized);
 
   const handleLogout = async () => {
     try {
       const { data } = await axios.post("/api/logoutuser", {
         isOpen,
       });
+      navigate("/login");
       toast.success(data.message);
       setIsAuthorized(false);
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
-  if (setIsAuthorized == false) {
-    return <Navigate to={"/login"} />;
-  } else {
-    <Navigate to={"/"} />;
-  }
+
   return (
     <>
       <nav
-        className={`bg-white shadow-md ${
-          isAuthorized ? "navbarShow" : "navbar"
+        className={`fixed w-full z-40 bg-white shadow-md ${
+          isAuthorized ? "navbarShow" : "navbarHide"
         } `}
       >
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container  mx-auto px-4 py-4 flex justify-between items-center">
           <div className="text-xl font-bold text-gray-800">Job Portal</div>
-          <div className="block lg:hidden">
-            <button className="text-gray-800 focus:outline-none">
-              <i className="fas fa-bars"></i>
+          <div className="lg:hidden">
+            <button
+              className="text-gray-800 focus:outline-none flex items-center p-2 hover:text-blue-600 transition duration-200 fixed top-4 right-4"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {/* Toggle between hamburger and close icon */}
+              <i
+                className={`fas ${isOpen ? "fa-times" : "fa-bars"} text-2xl`}
+              ></i>
             </button>
           </div>
-          <div className={`w-full lg:flex lg:items-center lg:w-auto `}>
-            <ul
-              className={`lg:flex lg:space-x-6${
-                isOpen ? "show-menu menu" : "menu"
-              }`}
-            >
+          <div
+            className={`w-full lg:flex lg:items-center lg:w-auto ${
+              isOpen ? "block" : "hidden"
+            } lg:block`}
+          >
+            <ul className="lg:flex lg:space-x-6">
               <li>
                 <Link
                   to="/"
@@ -60,61 +64,42 @@ function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className="block py-2 px-4 text-gray-800 hover:text-blue-600"
                 >
-                  All Job
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  to={"/job/me"}
-                  className="block py-2 px-4 text-gray-800 hover:text-blue-600"
-                  onClick={() => setIsOpen(false)}
-                >
-                  MY Job Application
+                  All Jobs
                 </Link>
               </li>
               <li>
                 <Link
                   to="/applications/me"
-                  className="block py-2 px-4 text-gray-800 hover:text-blue-600"
                   onClick={() => setIsOpen(false)}
+                  className="block py-2 px-4 text-gray-800 hover:text-blue-600"
                 >
-                  {user && user.role === "Employer"
-                    ? "APPLICATIONS"
-                    : "MY APPLICATIONS"}
+                  {user && user.role === "JobEmployee"
+                    ? "Applications"
+                    : "My Applications"}
                 </Link>
               </li>
-              {user && user.role === "Employer" ? (
+              {user && user.role === "JobEmployee" && (
                 <>
                   <li>
-                    <Link to={"/job/post"} onClick={setIsOpen(false)}>
-                      Post New Job
-                    </Link>
-                  </li>
-
-                  <li>
                     <Link
-                      to={"/job/me"}
+                      to="/job/post"
                       onClick={() => setIsOpen(false)}
                       className="block py-2 px-4 text-gray-800 hover:text-blue-600"
                     >
-                      View Your Job
+                      Post New Job
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/job/me"
+                      onClick={() => setIsOpen(false)}
+                      className="block py-2 px-4 text-gray-800 hover:text-blue-600"
+                    >
+                      View Your Jobs
                     </Link>
                   </li>
                 </>
-              ) : (
-                <></>
               )}
-
-              <Link
-                className="block py-2 px-4 text-gray-800 hover:text-blue-600"
-                to={"/job/post"}
-                onClick={() => setIsOpen(false)}
-              >
-                {" "}
-                <li className="flex items-center lg:ml-6">View Your Jobs </li>
-              </Link>
-
               <li>
                 <Link
                   to={"/about"}
@@ -140,18 +125,6 @@ function Navbar() {
             >
               Log Out
             </button>
-            {/* <div className="flex items-center lg:ml-6"  onClick={() => setIsOpen(false)}>
-              <Link to={"/register"}>
-                <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
-                  Sign Up
-                </button>
-              </Link>
-              <Link to={"/login"}  onClick={() => setIsOpen(false)}>
-                <button className="ml-4 border border-blue-600 text-blue-600 py-2 px-4 rounded hover:bg-blue-600 hover:text-white">
-                  Login
-                </button>
-              </Link>
-            </div> */}
           </div>
         </div>
       </nav>
